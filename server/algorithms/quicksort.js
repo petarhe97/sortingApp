@@ -1,3 +1,8 @@
+/*
+ * Simple Quick sort implementation that stores the sorting steps
+ * Note: Redundant steps where the same element is being swapped are skipped using a set
+*/
+
 function swap(elements, firstIndex, secondIndex, steps) {
     let temp = elements[firstIndex];
     elements[firstIndex] = elements[secondIndex];
