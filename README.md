@@ -4,11 +4,13 @@
 On terminal 1, start backend server
 ```
 cd server
+npm install
 npm start
 ```
 On terminal 2, start frontend webpage
 ```
 cd mapsted
+npm install
 npm start
 ```
 
