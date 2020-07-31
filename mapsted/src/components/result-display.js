@@ -5,6 +5,8 @@ class ResultDisplay extends Component {
     super(props)
   }
 
+  // renders a div displaying an error message if the validation results in an error
+  // otherwise show the sorting steps
   render () {
     const isErr = this.props.isError;
     let resultDiv;

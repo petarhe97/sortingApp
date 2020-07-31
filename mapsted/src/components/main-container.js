@@ -37,13 +37,17 @@ class MainContainer extends Component {
         })
   }
 
+  // Checks whether the input fits within required limits:
+  // Input size is 1 to 100 values
+  // Numeric values are integer size
+  // String values are up to 10 characters long
   checkValidity = (input) => {
     if (input.length < 1 && input.length > 100) {
       return false
     }
 
     if (this.state.inputType === 'Numeric')  {
-        return !input.some(isNaN)
+        return !input.some(isNaN) && !input.some(i => !Number.isInteger(Number(i)))
     } else {
         return !input.some((element) => element.length > 10)
     }
@@ -65,7 +69,7 @@ class MainContainer extends Component {
     return (
     <section>
       <InputDropdown inputType={this.state.inputType} onInputTypeChange={this.handleInputTypeChange} />
-      <input type='text' onChange={this.handleInputSequence}/>
+      <input type='text' onChange={this.handleInputSequence}/> <br/>
       <button onClick={this.validateAndSubmit}>
           Sort!
       </button>

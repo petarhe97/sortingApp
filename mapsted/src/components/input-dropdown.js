@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import Dropdown from 'react-dropdown'
 
+// Simple dropdown menu using react-dropdown for selecting input type
 class InputDropdown extends Component {
   constructor (props) {
     super(props)
