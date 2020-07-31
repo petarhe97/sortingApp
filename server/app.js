@@ -4,9 +4,11 @@ const path = require('path');
 const cookieParser = require('cookie-parser');
 const logger = require('morgan');
 const cors = require('cors')
+const bodyParser = require('body-parser')
 
 const indexRouter = require('./routes/index');
 const sortRouter = require('./routes/sorting-route');
+const { allowedNodeEnvironmentFlags } = require('process');
 
 const app = express();
 
@@ -20,6 +22,10 @@ app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 app.use(cors())
+app.use(bodyParser.urlencoded({ extended: false }))
+app.use(bodyParser.json())
+
+// routes
 app.use('/', indexRouter);
 app.use('/sort', sortRouter);
 

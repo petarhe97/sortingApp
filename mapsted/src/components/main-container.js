@@ -20,14 +20,17 @@ class MainContainer extends Component {
 
   handleSequenceSubmit = () => {
       axios
-        .post('http://localhost:3001/sort', {
+        .post('http://localhost:3001/sort/sequence', {
             mode: this.state.inputType,
             sequence: this.state.inputSequence
         })
         .then(res => {
-            this.state.stepsOutput = res.data
+          this.setState({stepsOutput: res.data.resultingSteps})
         })
-        .catch(err => console.error(`There was an error sorting the sequence ${this.state.sequence} with error ${err}`))
+        .catch(err => {
+          console.error(`There was an error sorting the sequence ${this.state.sequence} with error ${err}`)
+          this.setState({ stepsOutput: `There was an error sorting the sequence ${this.state.sequence} with error ${err}` })
+        })
   }
 
   validateAndSubmit = event => {
@@ -49,7 +52,11 @@ class MainContainer extends Component {
       With sequence
       <strong> {this.state.inputSequence} </strong> <br/>
       And got result
-      <strong> {this.state.stepsOutput} </strong> <br/>
+      <div>
+      {this.state.stepsOutput.map(function(element, idx){
+         return (<li key={idx}>{element}</li>)
+       })}
+      </div>
     </div>
     </section>
     )
