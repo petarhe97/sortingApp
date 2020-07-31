@@ -21,10 +21,6 @@ class InputDropdown extends Component {
       { value: 'Text', label: 'Text'},
     ]
 
-
-    const defaultOption = this.state.selected
-    const placeHolderValue = typeof this.state.selected === 'string' ? this.state.selected : this.state.selected.label
-
     return (
       <section>
         <h3>Please select an input type</h3>

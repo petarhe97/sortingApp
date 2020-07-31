@@ -1,23 +1,27 @@
 import React, { Component } from 'react'
 import InputDropdown from './input-dropdown.js'
+import ResultDisplay from './result-display.js'
 import axios from 'axios'
 
 class MainContainer extends Component {
   state = {
     inputType: 'Numeric',
     inputSequence: '',
-    stepsOutput: []
+    stepsOutput: [],
+    isError: false,
   }
 
+  // handles the dropdown menu's selection of input type
   handleInputTypeChange = inputTypeChange => {
     this.setState({ inputType: inputTypeChange })
-    console.log(this.state.inputType)
   }
 
+  // handles the input box's change of value
   handleInputSequence = event => {
       this.setState({ inputSequence: event.target.value })
   }
 
+  // handles the call to backend for sorting the sequence
   handleSequenceSubmit = () => {
       axios
         .post('http://localhost:3001/sort/sequence', {
@@ -33,9 +37,28 @@ class MainContainer extends Component {
         })
   }
 
+  checkValidity = (input) => {
+    if (input.length < 1 && input.length > 100) {
+      return false
+    }
+
+    if (this.state.inputType === 'Numeric')  {
+        return !input.some(isNaN)
+    } else {
+        return !input.some((element) => element.length > 10)
+    }
+  }
+
+  // handles the client side validation of input and submits to backend
   validateAndSubmit = event => {
-      // Validate
-      this.handleSequenceSubmit()
+      const inputArray = this.state.inputSequence.split(',')
+
+      if(this.checkValidity(inputArray)) {
+        this.setState({ isError: false })
+        this.handleSequenceSubmit()
+      } else {
+        this.setState({ isError: true })
+      }
   }
 
   render() {
@@ -52,11 +75,7 @@ class MainContainer extends Component {
       With sequence
       <strong> {this.state.inputSequence} </strong> <br/>
       And got result
-      <div>
-      {this.state.stepsOutput.map(function(element, idx){
-         return (<li key={idx}>{element}</li>)
-       })}
-      </div>
+      <ResultDisplay isError={this.state.isError} stepsOutput={this.state.stepsOutput}/>
     </div>
     </section>
     )
