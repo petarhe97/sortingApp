@@ -1,4 +1,4 @@
-# Input sorter and displayer for Mapsted
+# Input sorter and displayer
 
 ### Usage
 On terminal 1, start backend server
